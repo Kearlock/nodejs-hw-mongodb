@@ -1,5 +1,5 @@
 import process from 'process';
-import setupServer from './server.js';
+import Server from './server.js';
 import initMongoConnection from './db/initMongoConnection.js';
 
 const PORT = Number(process.env.PORT || 3000);
@@ -7,7 +7,7 @@ const PORT = Number(process.env.PORT || 3000);
 async function bootstrap() {
   try {
     await initMongoConnection();
-    setupServer.listen(PORT, (error) => {
+    Server.listen(PORT, (error) => {
       if (error) {
         console.error(error.message);
         throw error;
