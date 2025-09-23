@@ -1,7 +1,6 @@
 import { HttpError } from 'http-errors';
 
 export default function errorHandler(err, req, res, next) {
-  console.error('ERROR HANDLER:', err); //temp debug command
   if (err instanceof HttpError) {
     res.status(err.status).json({
       status: err.status,
