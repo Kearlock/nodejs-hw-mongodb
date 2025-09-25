@@ -19,7 +19,6 @@ const contactsRouter = Router();
 contactsRouter.get('/', ctrlWrapper(getAllContactsCtr));
 
 contactsRouter.get('/:id', isValidID, ctrlWrapper(getContactByIdCtr));
-// contactsRouter.get('/:id', getContactByIdCtr);
 
 contactsRouter.post(
   '/',
