@@ -17,11 +17,14 @@ export async function getAllContactsCtr(req, res) {
   const sort = parseSortParams(req.query);
   const filter = parseFilterParams(req.query);
 
+  console.log('userId:', req.user.id, 'filter:', filter);
+
   const contactsData = await getAllContacts({
     page,
     perPage,
     sort,
     filter,
+    userId: req.user.id,
   });
   res.status(200).json({
     status: 200,
@@ -31,11 +34,16 @@ export async function getAllContactsCtr(req, res) {
 }
 
 export async function getContactByIdCtr(req, res, next) {
+  console.log('userId:', contactData.userId.toString());
   const id = req.params.id;
   const contactData = await getContactById(id);
   if (!contactData) {
     throw new createHttpError.NotFound('Contact not found');
   }
+  if (contactData.userId.toString() !== req.user.id.toString()) {
+    throw new createHttpError.Forbidden('Contact unavailable');
+  }
+
   res.status(200).json({
     status: 200,
     message: `Successfully found contact with id ${id}!`,
@@ -44,7 +52,7 @@ export async function getContactByIdCtr(req, res, next) {
 }
 
 export async function newContactCtr(req, res) {
-  const contact = await newContact(req.body);
+  const contact = await newContact({ ...req.body, userId: req.user.id });
   res.status(201).json({
     status: 201,
     message: 'Successfully created a contact!',

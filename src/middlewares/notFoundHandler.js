@@ -1,5 +1,5 @@
 import createHttpError from 'http-errors';
 
-export function notFoundHandler() {
+export default function notFoundHandler() {
   throw createHttpError(404, 'Route not found');
 }

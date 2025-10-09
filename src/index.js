@@ -15,7 +15,7 @@ async function bootstrap() {
       console.info(`Server is running on port ${PORT}`);
     });
   } catch (err) {
-    console.error(err);
+    console.error('indexErr', err);
   }
 }
 
