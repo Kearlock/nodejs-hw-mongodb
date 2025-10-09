@@ -34,9 +34,9 @@ export async function getAllContactsCtr(req, res) {
 }
 
 export async function getContactByIdCtr(req, res, next) {
-  console.log('userId:', contactData.userId.toString());
   const id = req.params.id;
   const contactData = await getContactById(id);
+  console.log('userId:', contactData.userId.toString());
   if (!contactData) {
     throw new createHttpError.NotFound('Contact not found');
   }
