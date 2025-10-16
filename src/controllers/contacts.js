@@ -12,6 +12,10 @@ import {
   parseFilterParams,
 } from '../utils/parseAdditionParams.js';
 
+import fs from 'node:fs/promises';
+// import path from 'node:path';
+import uploadToCloudinary from '../utils/uploadToCloudinary.js';
+
 export async function getAllContactsCtr(req, res) {
   const { page, perPage } = parsePaginationParams(req.query);
   const sort = parseSortParams(req.query);
@@ -52,7 +56,15 @@ export async function getContactByIdCtr(req, res, next) {
 }
 
 export async function newContactCtr(req, res) {
-  const contact = await newContact({ ...req.body, userId: req.user.id });
+  // let photo = path.resolve('../photo/default-avatar.jpg');
+  let photo;
+  if (req.file.fieldname === 'photo') {
+    const response = await uploadToCloudinary(req.file.path);
+    await fs.unlink(req.file.path);
+    photo = response.secure_url;
+  }
+
+  const contact = await newContact({ ...req.body, photo, userId: req.user.id });
   res.status(201).json({
     status: 201,
     message: 'Successfully created a contact!',
@@ -63,6 +75,12 @@ export async function newContactCtr(req, res) {
 export async function editContactByIdCtr(req, res, next) {
   const id = req.params.id;
   const data = req.body;
+  if (req.file.fieldname === 'photo') {
+    const response = await uploadToCloudinary(req.file.path);
+    await fs.unlink(req.file.path);
+    data.photo = response.secure_url;
+  }
+
   const updatedContact = await editContactById(id, data);
   if (!updatedContact) {
     throw new createHttpError.NotFound('Contact not found');
