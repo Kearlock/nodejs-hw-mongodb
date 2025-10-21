@@ -1,0 +1,66 @@
+#/swagger/paths/contacts/get.yaml
+tags:
+  - Contacts
+summary: Get list of contacts owned by athorised user
+operationId: getContacts
+description: Get contacts list owned by athorised user
+
+security:
+  - bearerAuth: []
+
+parameters:
+  - name: page
+    in: query
+    schema:
+      type: integer
+      example: 1
+  - in: query
+    name: perPage
+    schema:
+      type: integer
+      example: 10
+  - in: query
+    name: sortBy
+    schema:
+      type: string
+      enum:
+        [
+          '_id',
+          'name',
+          'phoneNumber',
+          'email',
+          'isFavourite',
+          'contactType',
+          'createdAt',
+          'updatedAt',
+        ]
+      example: 'name'
+      default: _id
+    description: "All contact's fields can be mentioned. Default value - _id"
+  - in: query
+    name: sortOrder
+    schema:
+      type: string
+      enum: ['asc', 'desc']
+      example: 'asc'
+    description: 'Number presentation could be used: asc-1, desc-0'
+  - in: query
+    name: type
+    schema:
+      type: string
+      enum: ['home', 'work', 'personal']
+      example: home
+    description: Filter by contact type.
+  - in: query
+    name: isFavorite
+    schema:
+      type: boolean
+      example: true
+    description: If true - display only favourite.
+responses:
+  '200':
+    $ref: ../../components/responses/200.yaml
+  '401':
+    $ref: ../../components/responses/401.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml

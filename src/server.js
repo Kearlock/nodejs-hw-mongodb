@@ -8,6 +8,9 @@ import notFoundHandler from './middlewares/notFoundHandler.js';
 import errorHandler from './middlewares/errorHandler.js';
 import usersRouter from './routers/auth.js';
 import { auth } from './middlewares/auth.js';
+import fs from 'node:fs';
+import path from 'node:path';
+import swaggerUI from 'swagger-ui-express';
 
 const Server = express();
 
@@ -19,7 +22,15 @@ Server.use(
   }),
 );
 
+const SWAGGER_DOCUMENT = JSON.parse(
+  fs.readFileSync(path.join('docs', 'swagger.json')),
+);
+
+console.log(SWAGGER_DOCUMENT);
+
 Server.use(cors());
+
+Server.use('/api-docs', swaggerUI.serve, swaggerUI.setup(SWAGGER_DOCUMENT));
 
 Server.use(express.json());
 

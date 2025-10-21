@@ -1,0 +1,25 @@
+#/swagger/paths/contacts/get.yaml
+tags:
+  - Contacts
+summary: Add the new contact to the database
+operationId: createContact
+description: Add new contact
+
+security:
+  - bearerAuth: []
+
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        $ref: ../../components/schemes/newContact.yaml
+
+responses:
+  '201':
+    $ref: ../../components/responses/201.yaml
+  '400':
+    $ref: ../../components/responses/400.yaml
+  '401':
+    $ref: ../../components/responses/401.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml
