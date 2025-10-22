@@ -18,7 +18,7 @@ requestBody:
   content:
     multipart/form-data:
       schema:
-        $ref: ../../../components/schemes/contact.yaml
+        $ref: ../../../components/schemes/patchContact.yaml
 
 responses:
   '200':
@@ -39,7 +39,7 @@ responses:
               type: string
               example: Successfully patched a contact!
             data:
-              $ref: ../../../components/schemes/contact.yaml
+              $ref: ../../../components/schemes/patchContact.yaml
   '400':
     $ref: ../../../components/responses/400.yaml
   '401':

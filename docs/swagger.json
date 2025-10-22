@@ -271,7 +271,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/contact"
+                "$ref": "#/components/schemas/patchContact"
               }
             }
           }
@@ -293,7 +293,7 @@
                       "example": "Successfully patched a contact!"
                     },
                     "data": {
-                      "$ref": "#/components/schemas/contact"
+                      "$ref": "#/components/schemas/patchContact"
                     }
                   }
                 }
@@ -422,6 +422,52 @@
         }
       },
       "newContact": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Contact's name",
+            "example": "John Dow"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "Contact's phone number",
+            "example": 380679657313
+          },
+          "email": {
+            "type": "string",
+            "description": "Contact's email",
+            "example": "johnd@mail.com"
+          },
+          "photo": {
+            "type": "string",
+            "description": "Contact photo",
+            "format": "binary"
+          },
+          "isFavourite": {
+            "type": "boolean",
+            "description": "Is contact favourite",
+            "default": false,
+            "example": true
+          },
+          "contactType": {
+            "type": "string",
+            "description": "Type of the contact",
+            "enum": [
+              "work",
+              "home",
+              "personal"
+            ],
+            "example": "personal"
+          }
+        },
+        "required": [
+          "name",
+          "phoneNumber",
+          "contactType"
+        ]
+      },
+      "patchContact": {
         "type": "object",
         "properties": {
           "name": {
