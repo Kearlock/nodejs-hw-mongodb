@@ -39,28 +39,29 @@ responses:
               type: string
               example: Successfully patched a contact!
             data:
-              $ref: ../../../components/schemes/patchContact.yaml
+              $ref: ../../../components/schemes/contact.yaml
   '400':
     $ref: ../../../components/responses/400.yaml
   '401':
     $ref: ../../../components/responses/401.yaml
-    '404':
-      $ref: ../../../components/responses/404.yaml
-      '500':
-        $ref: ../../../components/responses/500.yaml
-        # '403':
-        #   description: Requested contact not avaliable
-        #   content:
-        #     application/json:
-        #       schema:
-        #         type: object
-        #         required:
-        #           - status
-        #           - message
-        #         properties:
-        #           status:
-        #             type: integer
-        #             example: 403
-        #           message:
-        #             type: string
-        #             example: Contact unavailable
+  '404':
+    $ref: ../../../components/responses/404.yaml
+  '500':
+    $ref:
+      ../../../components/responses/500.yaml
+      # '403':
+      #   description: Requested contact not avaliable
+      #   content:
+      #     application/json:
+      #       schema:
+      #         type: object
+      #         required:
+      #           - status
+      #           - message
+      #         properties:
+      #           status:
+      #             type: integer
+      #             example: 403
+      #           message:
+      #             type: string
+      #             example: Contact unavailable
