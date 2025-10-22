@@ -26,7 +26,3 @@ properties:
     description: Type of the contact
     enum: ['work', 'home', 'personal']
     example: personal
-required:
-  - name
-  - phoneNumber
-  - contactType
